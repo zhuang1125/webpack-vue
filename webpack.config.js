@@ -1,6 +1,17 @@
 var path = require('path');
 var webpack = require('webpack');
 
+// 引入html-webpack-plugin 插件 
+const htmlWebpackPlugin = require('html-webpack-plugin')
+
+
+const webpackPlugin = new htmlWebpackPlugin({
+  // 引入要写入内存的文件  
+  template: path.join(__dirname, './index.html'),
+  // 给输出的文件取名
+  filename: 'index.html'
+})
+
 module.exports = {
   entry: ['babel-polyfill', './src/main.js'],
   devtool: '#eval-source-map',
@@ -9,6 +20,9 @@ module.exports = {
     publicPath: '/dist/', // 通过devServer访问路径
     filename: 'build.js' // 打包后的文件名
   },
+  plugins: [
+    webpackPlugin
+  ],
   devServer: {
     historyApiFallback: true,
     overlay: true
